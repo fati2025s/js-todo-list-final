@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروژه نهایی جاوااسکریپت | لیست کارها</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts (Optional for better look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .todo-container {
+            max-width: 600px;
+            margin: 50px auto;
+        }
+        .completed-text {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        .todo-item {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .todo-item:hover {
+            background-color: #f8f9fa;
+        }
+        .dark-mode {
+            background-color: #121212;
+            color: #ffffff;
+        }
+        .dark-mode .card, .dark-mode .list-group-item {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border-color: #333;
+        }
+        .dark-mode .todo-item:hover {
+            background-color: #2c2c2c;
+        }
+        .dark-mode .form-control {
+            background-color: #2c2c2c;
+            color: white;
+            border-color: #444;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container todo-container">
+    <!-- Header & Theme Toggle -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">لیست کارهای من</h2>
+        <button id="themeToggle" class="btn btn-outline-secondary rounded-circle">
+            🌙
+        </button>
+    </div>
+
+    <!-- Input Section (Part 1: Add Task) -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <form id="todoForm" class="input-group">
+                <input type="text" id="todoInput" class="form-control" placeholder="کار جدیدی اضافه کنید..." aria-label="Todo input">
+                <button class="btn btn-primary" type="submit" id="addBtn">
+                    افزودن تسک
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Filters (Part 4: Filtering) -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="btn-group shadow-sm" role="group">
+            <button type="button" class="btn btn-sm btn-outline-primary active" data-filter="all">همه</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" data-filter="active">فعال</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" data-filter="completed">انجام شده</button>
+        </div>
+        <button id="clearCompleted" class="btn btn-sm btn-link text-danger text-decoration-none d-none">حذف انجام شده‌ها</button>
+    </div>
+
+    <!-- Todo List (Part 2 & 3: Render, Complete, Delete) -->
+    <div class="card shadow-sm">
+        <ul id="todoList" class="list-group list-group-flush">
+            <!-- کارهای شما توسط جاوااسکریپت اینجا ساخته می‌شوند -->
+        </ul>
+        <div class="card-footer d-flex justify-content-between bg-transparent text-muted small">
+            <span id="itemsLeft">0 مورد باقی‌مانده</span>
+            <span id="totalItems">کل کارها: 0</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- 1. تنظیمات اولیه و انتخابگرها ---
+    const todoForm = document.querySelector('#todoForm');
+    const todoInput = document.querySelector('#todoInput');
+    const todoList = document.querySelector('#todoList');
+    const themeToggle = document.querySelector('#themeToggle');
+    const itemsLeft = document.querySelector('#itemsLeft');
+    const totalItems = document.querySelector('#totalItems');
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const clearCompletedBtn = document.querySelector('#clearCompleted');
+
+    // لود داده‌ها از LocalStorage (بخش ۵ الزامی)
+    let todos = JSON.parse(localStorage.getItem('todos')) || [];
+    let currentFilter = 'all';
+
+    // --- 2. توابع اصلی ---
+
+    // ذخیره در LocalStorage
+    const saveToLocal = () => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        renderTodos();
+    };
+
+    // افزودن تسک جدید (بخش ۱ الزامی)
+    const addTodo = (e) => {
+        e.preventDefault();
+        const text = todoInput.value.trim();
+        
+        if (text === "") {
+            alert("لطفاً متنی وارد کنید!");
+            return;
+        }
+
+        // ساخت آبجکت تسک (طبق متد اسپرِد که در فایل خواسته شده)
+        const newTodo = {
+            id: Date.now(),
+            text: text,
+            completed: false
+        };
+
+        todos = [...todos, newTodo];
+        todoInput.value = ""; // پاک کردن اینپوت
+        saveToLocal();
+    };
+
+    // تغییر وضعیت انجام شده (بخش ۲ الزامی با استفاده از map)
+    const toggleTodo = (id) => {
+        todos = todos.map(todo => 
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
+        saveToLocal();
+    };
+
+    // حذف تسک (بخش ۳ الزامی با استفاده از filter)
+    const deleteTodo = (id) => {
+        todos = todos.filter(todo => todo.id !== id);
+        saveToLocal();
+    };
+
+    // رندر کردن لیست (استفاده از createElement طبق دستورالعمل)
+    const renderTodos = () => {
+        todoList.innerHTML = ""; // ابتدا لیست را خالی می‌کنیم
+
+        // فیلتر کردن (بخش ۴)
+        const filtered = todos.filter(todo => {
+            if (currentFilter === 'active') return !todo.completed;
+            if (currentFilter === 'completed') return todo.completed;
+            return true;
+        });
+
+        filtered.forEach(todo => {
+            // ساخت المان li
+            const li = document.createElement('li');
+            li.className = `list-group-item d-flex justify-content-between align-items-center todo-item p-3`;
+            
+            // بخش متن
+            const contentDiv = document.createElement('div');
+            contentDiv.className = "d-flex align-items-center";
+            contentDiv.onclick = () => toggleTodo(todo.id);
+
+            const checkbox = document.createElement('span');
+            checkbox.innerHTML = todo.completed ? '✅' : '⚪';
+            checkbox.className = "me-3";
+
+            const textSpan = document.createElement('span');
+            textSpan.textContent = todo.text;
+            if (todo.completed) textSpan.className = "completed-text";
+
+            contentDiv.appendChild(checkbox);
+            contentDiv.appendChild(textSpan);
+
+            // دکمه حذف
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = "btn btn-sm btn-outline-danger border-0";
+            deleteBtn.innerHTML = "🗑️";
+            deleteBtn.onclick = (e) => {
+                e.stopPropagation(); // جلوگیری از کلیک روی li
+                deleteTodo(todo.id);
+            };
+
+            li.appendChild(contentDiv);
+            li.appendChild(deleteBtn);
+            todoList.appendChild(li);
+        });
+
+        // بروزرسانی آمار (بخش بونوس با استفاده از reduce)
+        const activeCount = todos.reduce((count, todo) => !todo.completed ? count + 1 : count, 0);
+        itemsLeft.textContent = `${activeCount} مورد باقی‌مانده`;
+        totalItems.textContent = `کل کارها: ${todos.length}`;
+
+        // نمایش دکمه پاکسازی
+        const hasCompleted = todos.some(t => t.completed);
+        clearCompletedBtn.classList.toggle('d-none', !hasCompleted);
+    };
+
+    // --- 3. رویدادها (EventListeners) ---
+
+    todoForm.addEventListener('submit', addTodo);
+
+    // مدیریت کلیک روی دکمه‌های فیلتر
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.getAttribute('data-filter');
+            renderTodos();
+        });
+    });
+
+    // حذف کارهای انجام شده
+    clearCompletedBtn.addEventListener('click', () => {
+        todos = todos.filter(t => !t.completed);
+        saveToLocal();
+    });
+
+    // تم تاریک (بونوس)
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // لود تم در هنگام شروع
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.textContent = '☀️';
+    }
+
+    // رندر اولیه
+    renderTodos();
+
+</script>
+
+</body>
+</html>
