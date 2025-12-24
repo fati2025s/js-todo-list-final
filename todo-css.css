@@ -1,0 +1,155 @@
+:root {
+            --bg-light: #f6e4ff; 
+            --bg-dark: #4f00b0;
+            --nav-bg: linear-gradient(90deg, #4b0082 0%, #6a0dad 100%);
+            --text-dark-mode: #92f41a;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --purple-accent: #6a0dad;
+            --purple-light: #f1edff;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+        }
+
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--bg-light);
+            transition: all 0.4s ease;
+        }
+
+        .main-content { min-height: calc(100vh - 56px); }
+        
+        .custom-navbar {
+            background: var(--nav-bg) !important;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .image-section {
+            background: var(--primary-gradient);
+            background-size: cover;
+            background-position: center;
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            order: 2;
+            transition: background-image 1s ease-in-out;
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem;
+            box-shadow: inset 20px 0 40px -20px rgba(0,0,0,0.5);
+        }
+        
+        .todo-section {
+            padding: 40px;
+            background-color: rgba(248, 249, 250, 0.4); 
+            backdrop-filter: blur(10px);
+            min-height: calc(100vh - 56px);
+            order: 1;
+        }
+
+        .input-card {
+            background: white;
+            border-radius: var(--radius-md) !important;
+            border: 1px solid rgba(0,0,0,0.05) !important;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1001;
+        }
+        
+        #todoInput {
+            background: transparent !important;
+            box-shadow: none !important;
+            border: none !important;
+            font-size: 1.1rem;
+        }
+
+        .todo-card {
+            border: none !important;
+            border-radius: var(--radius-md) !important;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .todo-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1) !important;
+        }
+
+        .completed-text {
+            text-decoration: line-through;
+            color: #adb5bd !important;
+        }
+
+        .custom-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--purple-accent);
+            border-radius: 6px;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        
+        .completed .custom-check {
+            background-color: var(--purple-accent);
+        }
+
+        /* استایل اختصاصی برای زمان ویرایش */
+        .edit-mode-input {
+            border: 1px solid var(--purple-accent) !important;
+            border-radius: 4px;
+            padding: 2px 8px;
+            width: 100%;
+            outline: none;
+            background: rgba(255,255,255,0.8);
+            font-weight: bold;
+        }
+
+        .suggestions-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: none;
+            background: white;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            border-top: none;
+        }
+        .suggestions-menu.show { display: block; }
+        
+        .suggestion-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            font-size: 0.95rem;
+        }
+        
+        .suggestion-item:hover {
+            background-color: var(--purple-light);
+            color: var(--purple-accent);
+        }
+
+        .submit-text-btn {
+            background: none;
+            border: none;
+            color: var(--purple-accent);
+            font-weight: bold;
+            padding: 0 15px;
+        }
+
+        .dark-mode { background-color: var(--bg-dark) !important; color: white !important; }
+        .dark-mode .todo-section { background-color: rgba(0,0,0,0.2); }
+        .dark-mode .input-card, .dark-mode .todo-card { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255,255,255,0.05) !important; }
+        .dark-mode .suggestions-menu { background: #3a0082; }
+        .dark-mode .suggestion-item { color: white; }
+        .dark-mode #todoInput { color: white; }
+        .dark-mode .edit-mode-input { background: rgba(0,0,0,0.3); color: white; }
