@@ -88,7 +88,7 @@ To run this project locally, follow these steps:
 
 Clone the repository:
 
-git clone [https://github.com/username/todomaster.git](https://github.com/username/todomaster.git)
+git clone [https://github.com/fati2025s/js-todo-list-final](https://github.com/fati2025s/js-todo-list-final)
 
 
 Navigate to the project folder:
@@ -98,8 +98,8 @@ cd todomaster
 
 Open the main file:
 
-# Simply open index.html in your favorite browser
-open index.html
+# Simply open todo-list.html in your favorite browser
+open todo-list.html
 
 
 Developed with ❤️ for productivity and clean code enthusiasts.
