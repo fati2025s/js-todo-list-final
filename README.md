@@ -10,6 +10,10 @@ The main focus of **TodoMaster** is to deliver a clean, minimalist workspace com
 
 ## Features & Screenshots
 
+**Login & Signup**
+
+![1](https://github.com/fati2025s/js-todo-list-final/blob/main/1.jpg)
+
 **Modern Task Interface**
 
 ![Screenshot 2025-12-24 043502](https://github.com/fati2025s/js-todo-list-final/blob/main/Screenshot%202025-12-24%20043502.jpg)
