@@ -12,15 +12,20 @@ The main focus of **TodoMaster** is to deliver a clean, minimalist workspace com
 
 **Modern Task Interface**
 
+![Screenshot 2025-12-24 043502](https://github.com/fati2025s/js-todo-list-final/Screenshot 2025-12-24 043502.jpg)
+
 The application features a dual-pane layout on desktop. The left side handles all task logic, while the right side provides a visual, aesthetic experience with motivational content.
 
 **🌓 Theme Customization (Dark & Light Mode)**
 
+![Screenshot 2025-12-24 043547](https://github.com/fati2025s/js-todo-list-final/Screenshot 2025-12-24 043547.jpg)
 
 TodoMaster includes a robust theme engine. Users can switch between a soft purple-light mode and a high-contrast deep-purple dark mode for better accessibility and night-time use.
 
 
 **💡 Smart Suggestion System**
+
+![Screenshot 2025-12-24 043640](https://github.com/fati2025s/js-todo-list-final/Screenshot 2025-12-24 043640.jpg)
 
 One of the standout features is the Predictive Input. As users type, the app suggests common tasks to speed up the organization process.
 
