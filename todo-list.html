@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لیست کارهای حرفه‌ای | با قابلیت ویرایش</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="todo-css.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="#">Todo<span class="text-info">Master</span></a>
+        <button id="themeToggle" class="btn btn-outline-light btn-sm rounded-pill px-3">🌙 حالت شب</button>
+    </div>
+</nav>
+
+<div class="container-fluid p-0">
+    <div class="row g-0 main-content">
+        <div class="col-12 col-md-7 todo-section">
+            <div class="mb-4 d-flex justify-content-between align-items-center">
+                <h2 class="fw-bold mb-0">کارهای من</h2>
+                <button id="clearBtn" class="btn btn-sm btn-outline-danger d-none fw-bold">پاکسازی انجام شده‌ها</button>
+            </div>
+
+            <div class="card input-card shadow-sm" id="inputCardWrapper">
+                <div class="card-body p-2">
+                    <form id="todoForm" class="d-flex align-items-center">
+                        <input type="text" id="todoInput" class="form-control" placeholder="تسک جدید را وارد کنید..." autocomplete="off">
+                        <button class="submit-text-btn" type="submit">افزودن</button>
+                    </form>
+                </div>
+                <div id="suggestionsMenu" class="suggestions-menu"></div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4 px-1">
+                <div class="btn-group shadow-sm bg-white rounded-pill p-1">
+                    <button class="btn btn-sm px-3 rounded-pill filter-btn active" data-filter="all">همه</button>
+                    <button class="btn btn-sm px-3 rounded-pill filter-btn" data-filter="active">فعال</button>
+                    <button class="btn btn-sm px-3 rounded-pill filter-btn" data-filter="completed">انجام شده</button>
+                </div>
+                <div class="small fw-bold opacity-75"><span id="itemsLeftCount">۰</span> باقی‌مانده</div>
+            </div>
+
+            <div id="todoContainer" class="pb-5"></div>
+        </div>
+
+        <div id="imageColumn" class="col-md-5 d-none d-md-flex image-section">
+             <div class="text-white w-100 shadow-lg" style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: var(--radius-md); backdrop-filter: blur(8px);">
+                <h4 class="fw-bold mb-2">نظم، کلید موفقیت</h4>
+                <p class="small m-0 opacity-75">وقتی کارهات رو می‌نویسی، ذهنت آزاد می‌شه.</p>
+             </div>
+        </div>
+    </div>
+</div>
+<script src="todo-list-js.js"></script>
+</body>
+
+</html>

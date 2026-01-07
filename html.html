@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود و ثبت‌نام مدرن | TodoMaster</title>
+    
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="log-css.css">
+</head>
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="auth-card shadow-lg">
+        
+        <div class="form-side">
+            <div id="loginHeader">
+                <h2 class="text-gradient mb-2">خوش آمدید</h2>
+                <p class="text-muted small mb-4">لطفاً برای دسترسی به پنل خود وارد شوید.</p>
+            </div>
+            
+            <div id="signupHeader" class="hidden">
+                <h2 class="text-gradient mb-2">ساخت حساب</h2>
+                <p class="text-muted small mb-4">به جمع هزاران مدیر زمان موفق بپیوندید.</p>
+            </div>
+
+            <form id="authForm">
+                <div id="usernameField" class="input-group-custom hidden">
+                    <input type="text" id="userInput" class="form-control-custom" placeholder="نام کاربری">
+                    <i class="fa fa-user"></i>
+                </div>
+
+                <div class="input-group-custom">
+                    <input type="email" id="emailInput" class="form-control-custom" placeholder="ایمیل شما" required>
+                    <i class="fa fa-envelope"></i>
+                </div>
+
+                <div class="input-group-custom">
+                    <input type="password" id="passInput" class="form-control-custom" placeholder="رمز عبور" required>
+                    <i class="fa fa-lock"></i>
+                    <i class="fa fa-eye" id="togglePass" style="right: auto; left: 15px; cursor: pointer; top: 25px;"></i>
+                    
+                    <div id="validationBox" class="validation-box">
+                        <div class="valid-item" id="rule-length"><i class="fa fa-circle"></i> حداقل ۸ کاراکتر</div>
+                        <div class="valid-item" id="rule-upper"><i class="fa fa-circle"></i> حروف کوچک و بزرگ</div>
+                        <div class="valid-item" id="rule-special"><i class="fa fa-circle"></i> کاراکتر خاص (@#$%)</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-auth" id="submitBtn">
+                    <span id="btnText">ورود به حساب</span>
+                    <div class="spinner" id="btnSpinner"></div>
+                </button>
+            </form>
+
+            <div class="text-center my-4 text-muted small">یا ادامه دهید با</div>
+
+            <div class="d-flex gap-3 mb-4">
+                <div class="social-btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" width="18" alt="Google">
+                    <span>Google</span>
+                </div>
+                <div class="social-btn">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </div>
+            </div>
+
+            <p class="text-center small mt-4">
+                <span id="switchText">هنوز عضو نشده‌اید؟</span>
+                <a class="toggle-form-btn" id="toggleLink">ایجاد حساب رایگان</a>
+            </p>
+        </div>
+
+        <div class="brand-side">
+            <div class="brand-content">
+                <i class="fa fa-rocket fa-4x mb-4 animate__animated animate__pulse animate__infinite"></i>
+                <h1 class="fw-bold mb-3">TodoMaster</h1>
+                <p class="opacity-75 mb-5">هوشمندترین راه برای سازماندهی کارهای روزمره و رسیدن به اهداف بزرگ.</p>
+                
+                <div class="features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa fa-check"></i></div>
+                        <span>امنیت چند لایه داده‌ها</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa fa-sync"></i></div>
+                        <span>همگام‌سازی ابری لحظه‌ای</span>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa fa-magic"></i></div>
+                        <span>رابط کاربری جادویی</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="log-js.js"></script>
+</body>
+</html>
